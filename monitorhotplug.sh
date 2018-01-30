@@ -6,9 +6,9 @@
 #There is a card0-DP-1 and DP-2, same is the case with the HDMI-A-1 and HDMI-A-2
 
 eDP_STATUS=$(</sys/class/drm/card0/card0-eDP-1/status )
-HDMI_STATUS=$(</sys/class/drm/card0/card-HDMI-A-1/status )
-DP_STATUS=$(</sys/class/drm/card0/card-DP-1/status )
-VGA_STATUS=$(</sys/class/drm/card0/card-VGA-1/status )
+HDMI_STATUS=$(</sys/class/drm/card0/card0-HDMI-A-1/status )
+DP_STATUS=$(</sys/class/drm/card0/card0-DP-1/status )
+VGA_STATUS=$(</sys/class/drm/card0/card0-VGA-1/status )
 
 eDP_STATUS=$(</sys/class/drm/card0/card0-eDP-1/enabled )
 HDMI_STATUS=$(</sys/class/drm/card0/card0-HDMI-A-1/enabled )
@@ -33,24 +33,24 @@ fi
 case $STATE in
 	1)
 	#eDP is on, nothing connected
-	/usr/bin/xrandr --output eDP-1 --auto
+	/usr/bin/xrandr --output eDP1 --auto
 	STATE=2
 	;;
 	2)
 	#eDP is on, projectors connected but not on
-	/usr/bin/xrandr --output eDP-1 --auto --output HDMI-A-1 --off --output VGA-1 --off --output DP-1 --off
+	/usr/bin/xrandr --output eDP1 --auto --output HDMI1 --off --output VGA1 --off --output DP1 --off
       	STATE=3
 	;;
 	3)
 	#eDP is off, other things on
 	if [ "connected" == "$HDMI_STATUS" ]; then
-		/usr/bin/xrandr --output eDP-1 --off --output HDMI-A-1 --auto
+		/usr/bin/xrandr --output eDP1 --off --output HDMI1 --auto
 		TYPE="HDMI"
 	elif [ "connected" == "$DP_STATUS" ]; then
-		/usr/bin/xrandr --output eDP-1 --off --output DP-1 --auto
+		/usr/bin/xrandr --output eDP1 --off --output DP1 --auto
 		TYPE="DP"
 	elif [ "connected" == "$VGA_STATUS" ]; then
-		/usr/bin/xrandr --output eDP-1 --off --output VGA-1 --auto
+		/usr/bin/xrandr --output eDP1 --off --output VGA1 --auto
 		TYPE="VGA"
 	fi
 	/usr/bin/notify-send -t 5000 --urgency=low "Switched to $TYPE"
@@ -59,13 +59,13 @@ case $STATE in
 	4)
 	#eDP is on, mirroring
 	if [ "connected" == "$HDMI_STATUS" ]; then
-		/usr/bin/xrandr --output eDP-1 --auto --output HDMI-A-1 --auto
+		/usr/bin/xrandr --output eDP1 --auto --output HDMI1 --auto
 		TYPE="HDMI"
 	elif [ "connected" == "$DP_STATUS" ]; then
-		/usr/bin/xrandr --output eDP-1 --auto --output DP-1 --auto
+		/usr/bin/xrandr --output eDP1 --auto --output DP1 --auto
 		TYPE="DP"
 	elif [ "connected" == "$VGA_STATUS" ]; then
-		/usr/bin/xrandr --output eDP-1 --auto --output VGA-1 --auto
+		/usr/bin/xrandr --output eDP1 --auto --output VGA1 --auto
 		TYPE="VGA"
 	fi
 	/usr/bin/notify-send -t 5000 --urgency=low "switched to $TYPE mirroring"
@@ -74,13 +74,13 @@ case $STATE in
 	5)
 	#eDP is on, extending
 	if [ "connected" == "$HDMI_STATUS" ]; then
-		/usr/bin/xrandr --output eDP-1 --auto --output HDMI-A-1 --auto --left-of eDP-1
+		/usr/bin/xrandr --output eDP1 --auto --output HDMI1 --auto --left-of eDP1
 		TYPE="HDMI"
 	elif [ "connected" == "$DP_STATUS" ]; then
-		/usr/bin/xrandr --output eDP-1 --auto --output DP-1 --auto --left-of eDP-1
+		/usr/bin/xrandr --output eDP1 --auto --output DP1 --auto --left-of eDP1
 		TYPE="DP"
 	elif [ "connected" == "$VGA_STATUS" ]; then
-		/usr/bin/xrandr --output eDP-1 --auto --output VGA-1 --auto --left-of eDP-1
+		/usr/bin/xrandr --output eDP1 --auto --output VGA1 --auto --left-of eDP1
 		TYPE="VGA"
 	fi
 	/usr/bin/notify-send -t 5000 --urgency=low "switched to $TYPE extended"
