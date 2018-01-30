@@ -2,6 +2,9 @@
 
 Hotplugging displays:
 
+Information from this site
+https://frdmtoplay.com/i3-udev-xrandr-hotplugging-output-switching/
+
 In order for hotplugging to work one must use a udev rule. This is contained in the file 98-monitor-hotplug.rules.
 
 To get a list of devices type the following.
