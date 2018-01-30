@@ -1,0 +1,1 @@
+KERNEL=="card0", SUBSYSTEM=="drm", ACTION=="change", ENV=":0" ENV{XAUTHORITY}="/home/austen/.Xauthority", RUN="/bin/bash /home/austen/programming/archi3configs/monitorhotplug.sh"
