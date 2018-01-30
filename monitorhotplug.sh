@@ -26,7 +26,7 @@ fi
 #the state log contains the next state to go in it
 
 #Monitors are disconnected, stay in state 1
-if [ "disconnected" == "$HDMI_STATUS" -a "disconnected" == "$DP_STATUS" -a "disconnected" == "$VGA_STATUS" ]; then
+if [ "disconnected" = "$HDMI_STATUS" -a "disconnected" = "$DP_STATUS" -a "disconnected" = "$VGA_STATUS" ]; then
 	STATE=1
 fi
 
@@ -43,13 +43,13 @@ case $STATE in
 	;;
 	3)
 	#eDP is off, other things on
-	if [ "connected" == "$HDMI_STATUS" ]; then
+	if [ "connected" = "$HDMI_STATUS" ]; then
 		/usr/bin/xrandr --output eDP1 --off --output HDMI1 --auto
 		TYPE="HDMI"
-	elif [ "connected" == "$DP_STATUS" ]; then
+	elif [ "connected" = "$DP_STATUS" ]; then
 		/usr/bin/xrandr --output eDP1 --off --output DP1 --auto
 		TYPE="DP"
-	elif [ "connected" == "$VGA_STATUS" ]; then
+	elif [ "connected" = "$VGA_STATUS" ]; then
 		/usr/bin/xrandr --output eDP1 --off --output VGA1 --auto
 		TYPE="VGA"
 	fi
@@ -58,13 +58,13 @@ case $STATE in
 	;;
 	4)
 	#eDP is on, mirroring
-	if [ "connected" == "$HDMI_STATUS" ]; then
+	if [ "connected" = "$HDMI_STATUS" ]; then
 		/usr/bin/xrandr --output eDP1 --auto --output HDMI1 --auto
 		TYPE="HDMI"
-	elif [ "connected" == "$DP_STATUS" ]; then
+	elif [ "connected" = "$DP_STATUS" ]; then
 		/usr/bin/xrandr --output eDP1 --auto --output DP1 --auto
 		TYPE="DP"
-	elif [ "connected" == "$VGA_STATUS" ]; then
+	elif [ "connected" = "$VGA_STATUS" ]; then
 		/usr/bin/xrandr --output eDP1 --auto --output VGA1 --auto
 		TYPE="VGA"
 	fi
@@ -73,13 +73,13 @@ case $STATE in
 	;;
 	5)
 	#eDP is on, extending
-	if [ "connected" == "$HDMI_STATUS" ]; then
+	if [ "connected" = "$HDMI_STATUS" ]; then
 		/usr/bin/xrandr --output eDP1 --auto --output HDMI1 --auto --left-of eDP1
 		TYPE="HDMI"
-	elif [ "connected" == "$DP_STATUS" ]; then
+	elif [ "connected" = "$DP_STATUS" ]; then
 		/usr/bin/xrandr --output eDP1 --auto --output DP1 --auto --left-of eDP1
 		TYPE="DP"
-	elif [ "connected" == "$VGA_STATUS" ]; then
+	elif [ "connected" = "$VGA_STATUS" ]; then
 		/usr/bin/xrandr --output eDP1 --auto --output VGA1 --auto --left-of eDP1
 		TYPE="VGA"
 	fi
